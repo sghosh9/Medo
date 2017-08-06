@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang = "en">
+
+   <head>
+      <meta charset = "utf-8">
+      <meta http-equiv = "X-UA-Compatible" content = "IE = edge">
+      <meta name = "viewport" content = "width = device-width, initial-scale = 1">
+
+      <title>Bootstrap 101 Template</title>
+
+      <!-- Bootstrap -->
+      <link href = "//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel = "stylesheet">
+      <link href = "styles/main.css" rel = "stylesheet">
+
+      <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+      <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+
+      <!--[if lt IE 9]>
+      <script src = "https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src = "https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+      <![endif]-->
+
+   </head>
+
+   <body ng-app="medo">
+      <div class="container" ng-controller="MEDOCtrl as medoctrl">
+        <ul id="medo-list">
+          <li ng-repeat="item in medoctrl.items">
+            <div class="row-item" ng-hide="editMode">
+              <span>{{ item.text }}</span>
+              <div class="item-actions pull-right">
+                <input type="submit" value="Edit" class="icon-button edit-item" ng-click="editMode = true; medoctrl.editItem($index)">
+                <input type="submit" value="Delete" class="icon-button remove-item" ng-click="medoctrl.removeItem($index)">
+              </div>
+              <input type="checkbox" value="{{ item.text }}" class="pull-right" />
+            </div>
+            <div class="row-edit" ng-show="editMode">
+              <input type="text" ng-model="item.text" class="form-field" />
+              <div class="submit-actions">
+                <input type="submit" value="Save" class="icon-button submit-save" ng-click="editMode = false; medoctrl.updateSave($index, item.text)">
+                <input type="submit" value="Cancel" class="icon-button submit-cancel"  ng-click="editMode = false; medoctrl.updateCancel($index)">
+              </div>
+            </div>
+          </li>
+          <li ng-show="medoctrl.newitem"><span>{{ medoctrl.newitem }}</span></li>
+        </ul>
+
+        <form id="add-new" name="addNew" ng-submit="medoctrl.addNew(medoctrl.newitem)">
+          <input type="text" placeholder="More meDOs!" ng-model="medoctrl.newitem" class="form-field" />
+          <input type="submit" value="Submit" class="submit">
+        </form>
+
+      </div>
+
+      <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+      <script src = "https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+      <!-- Include all compiled plugins (below), or include individual files as needed -->
+      <script src = "//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+      <script src="scripts/app.js"></script>
+
+   </body>
+</html>

@@ -30,15 +30,6 @@ body {
   clear: both;
   padding: 10px 0;
 }
-#medo-list .icon-button {
-  height: 24px;
-  width: 24px;
-  display: inline-block;
-  border: none;
-  padding: 0;
-  text-indent: -9999px;
-  transition: all 0.5s ease-in-out;
-}
 #medo-list li:hover .item-actions input {
   width: 24px;
   margin-left: 5px;
@@ -47,18 +38,7 @@ body {
   width: 0;
   float: left;
 }
-#medo-list .edit-item {
-  background: url(../images/edit.png) no-repeat 0;
-}
-#medo-list .remove-item {
-  background: url(../images/cross.png) no-repeat 0;
-}
-#medo-list .submit-save {
-  background: url(../images/save.png) no-repeat 0;
-}
-#medo-list .submit-cancel {
-  background: url(../images/reset.png) no-repeat 0;
-}
+
 .row-edit {
   position: relative;
 }
@@ -66,6 +46,28 @@ body {
   position: absolute;
   right: 0;
   top: 0;
+}
+
+.icon-button {
+  height: 24px;
+  width: 24px;
+  display: inline-block;
+  border: none;
+  padding: 0;
+  text-indent: -9999px;
+  transition: all 0.5s ease-in-out;
+}
+.icon-button.edit-item {
+  background: url(../images/edit.png) no-repeat 0;
+}
+.icon-button.remove-item {
+  background: url(../images/cross.png) no-repeat 0;
+}
+.icon-button.submit-save {
+  background: url(../images/save.png) no-repeat 0;
+}
+.icon-button.submit-cancel {
+  background: url(../images/reset.png) no-repeat 0;
 }
 
 /* Add new todo item form */
@@ -82,19 +84,16 @@ body {
 .form-field:focus {
   outline: none;
 }
-#add-new .submit {
+#add-new .icon-button {
   position: absolute;
   right: 0;
   top: 50%;
   transform: translateY(-50%);
-  background: #dadada;
-  padding: 8px;
-  border: 5px solid white;
 }
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
-    .container {
+  .container {
     max-width: 730px;
   }
 }

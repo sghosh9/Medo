@@ -25,19 +25,19 @@
    <body ng-app="medo">
       <div class="container" ng-controller="MEDOCtrl as medoctrl">
         <ul id="medo-list">
-          <li ng-repeat="item in medoctrl.items">
+          <li ng-repeat="item in items">
             <div class="row-item" ng-hide="editMode">
-              <span>{{ item.text }}</span>
+              <span>{{ item.title }}</span>
               <div class="item-actions pull-right">
                 <input type="submit" value="Edit" class="icon-button edit-item" ng-click="editMode = true; medoctrl.editItem($index)">
                 <input type="submit" value="Delete" class="icon-button remove-item" ng-click="medoctrl.removeItem($index)">
               </div>
-              <input type="checkbox" value="{{ item.text }}" class="pull-right" />
+              <input type="checkbox" value="{{ item.title }}" class="pull-right" />
             </div>
             <div class="row-edit" ng-show="editMode">
-              <input type="text" ng-model="item.text" class="form-field" />
+              <input type=.title" ng-model="item.title" class="form-field" />
               <div class="submit-actions">
-                <input type="submit" value="Save" class="icon-button submit-save" ng-click="editMode = false; medoctrl.updateSave($index, item.text)">
+                <input type="submit" value="Save" class="icon-button submit-save" ng-click="editMode = false; medoctrl.updateSave($index, item.title)">
                 <input type="submit" value="Cancel" class="icon-button submit-cancel"  ng-click="editMode = false; medoctrl.updateCancel($index)">
               </div>
             </div>
@@ -46,7 +46,7 @@
         </ul>
 
         <form id="add-new" name="addNew" ng-submit="medoctrl.addNew(medoctrl.newitem)">
-          <input type="text" placeholder="More meDOs!" ng-model="medoctrl.newitem" class="form-field" />
+          <input type=.title" placeholder="More meDOs!" ng-model="medoctrl.newitem" class="form-field" />
           <input type="submit" value="Submit" class="icon-button submit-save">
         </form>
 

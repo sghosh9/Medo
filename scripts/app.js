@@ -1,37 +1,59 @@
 (function() {
   var app = angular.module('medo', []);
 
-  var medo_items = [
-    {
-      'text': 'Eat'
-    },
-    {
-      'text': 'Sleep'
-    },
-    {
-      'text': 'Cry'
-    }
-  ];
+  // var medo_items = [
+  //   {
+  //     'title': 'Eat'
+  //   },
+  //   {
+  //     'title': 'Sleep'
+  //   },
+  //   {
+  //     'title': 'Cry'
+  //   }
+  // ];
 
-  app.controller('MEDOCtrl', function($scope){
-    this.items = medo_items;
+  app.controller('MEDOCtrl', ['$scope', '$http', 'MEDOapi', function($scope, $http, MEDOapi){
+    // Test
+    // $scope.items = medo_items;
+
+    $scope.items = [];
+
+    MEDOapi.getList()
+      .then(function(response) {
+        $scope.items = response.data;
+      },function(error){
+        console.log(error);
+      });
+
     this.addNew = function(item) {
-      var newItem = {'text' : item};
-      this.items.push(newItem);
+      var newItem = {'title' : item};
+      $scope.items.push(newItem);
       this.newitem = '';
     };
     this.removeItem = function(index) {
-      this.items.splice(index, 1);
+      $scope.items.splice(index, 1);
     };
     this.editItem = function(index) {
-      this.editVal = this.items[index].text;
+      this.editVal = $scope.items[index].title;
 
     };
     this.updateSave = function(index, item) {
     };
     this.updateCancel = function(index) {
-      this.items[index].text = this.editVal;
+      $scope.items[index].title = this.editVal;
     };
-  });
+  }]);
+
+  app.factory('MEDOapi', ['$http', function ($http) {
+    var urlBase = 'http://local.d8.com';
+    var MEDOapi = {};
+
+    MEDOapi.getList = function() {
+      return $http.get(urlBase + '/' + 'todo-list');
+    };
+
+    return MEDOapi;
+  }])
 
 }());

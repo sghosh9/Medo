@@ -24,6 +24,7 @@
 
    <body ng-app="medo">
       <div class="container" ng-controller="MEDOCtrl as medoctrl">
+        <p class="message" ng-show="showMsgFlag">{{ message }}</p>
         <ul id="medo-list">
           <li ng-repeat="item in items">
             <div class="row-item" ng-hide="editMode">

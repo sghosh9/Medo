@@ -13,12 +13,13 @@
   //   }
   // ];
 
-  app.controller('MEDOCtrl', ['$scope', '$http', 'MEDOapi', function($scope, $http, MEDOapi){
+  app.controller('MEDOCtrl', ['$scope', '$http', '$timeout', 'MEDOapi', function($scope, $http, $timeout, MEDOapi){
     // Test
     // $scope.items = medo_items;
 
     $scope.items = [];
     $scope.editVal = '';
+    $scope.showMsgFlag = false;
 
     $scope.refreshList = function() {
       MEDOapi.getList()
@@ -38,6 +39,7 @@
         .then(function(response) {
           console.log(response);
           $scope.refreshList();
+          $scope.showMsg($scope.items[index].title + ' has been removed.');
         },function(error){
           console.log(error);
         });
@@ -49,6 +51,13 @@
     };
     this.updateCancel = function(index) {
       $scope.items[index].title = $scope.editVal;
+    };
+    $scope.showMsg = function(message) {
+      $scope.showMsgFlag = true;
+      $scope.message = message;
+      $timeout(function() {
+        $scope.showMsgFlag = false;
+      }, 5000);
     };
 
     $scope.refreshList();
@@ -62,7 +71,9 @@
     MEDOapi.getList = function() {
       return $http.get(urlBase + '/todo-list');
     };
-
+    MEDOapi.addItem = function(data) {
+      return $http.post(urlBase + '/entity/node');
+    };
     MEDOapi.removeItem = function(nid) {
       return $http.delete(urlBase + '/node/' + nid);
     };

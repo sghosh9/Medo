@@ -30,9 +30,13 @@
         });
     };
     this.addNew = function(item) {
-      var newItem = {'title' : item};
       MEDOapi.addItem(item)
         .then(function(response) {
+          var newItem = {
+            'nid' : response.data.nid[0].value,
+            'title' : item,
+            'field_status' : 0
+          };
           // $scope.refreshList();
           $scope.items.push(newItem);
           $scope.newitem = '';
@@ -54,6 +58,14 @@
       $scope.editVal = $scope.items[index].title;
     };
     this.updateSave = function(index, item) {
+      MEDOapi.updateItem($scope.items[index].nid, item)
+        .then(function(response) {
+          // $scope.refreshList();
+          $scope.showMsg($scope.items[index].title + ' has been updated.');
+        },function(error){
+          $scope.showMsg('There was an error updating the item');
+          $scope.items[index].title = $scope.editVal;
+        });
     };
     this.updateCancel = function(index) {
       $scope.items[index].title = $scope.editVal;
@@ -94,6 +106,24 @@
         }
       }
       return $http.post(urlBase + '/entity/node', newItem, configs);
+    };
+    MEDOapi.updateItem = function(nid, title) {
+      var item = {
+        _links: {
+          type: {
+            href: urlBase + "/rest/type/node/todo"
+          }
+        },
+        title: {
+          value: title
+        }
+      };
+      var configs = {
+        headers: {
+          "Content-Type": "application/hal+json"
+        }
+      }
+      return $http.patch(urlBase + '/node/' + nid + '?_format=hal_json', item, configs);
     };
     MEDOapi.removeItem = function(nid) {
       return $http.delete(urlBase + '/node/' + nid);

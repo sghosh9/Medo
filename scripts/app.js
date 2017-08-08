@@ -1,21 +1,7 @@
 (function() {
   var app = angular.module('medo', []);
 
-  // var medo_items = [
-  //   {
-  //     'title': 'Eat'
-  //   },
-  //   {
-  //     'title': 'Sleep'
-  //   },
-  //   {
-  //     'title': 'Cry'
-  //   }
-  // ];
-
   app.controller('MEDOCtrl', ['$scope', '$http', '$timeout', 'MEDOapi', function($scope, $http, $timeout, MEDOapi){
-    // Test
-    // $scope.items = medo_items;
 
     $scope.items = [];
     $scope.editVal = '';

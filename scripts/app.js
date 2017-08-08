@@ -28,12 +28,12 @@
           console.log(error);
         });
     };
-    $scope.addNew = function(item) {
+    this.addNew = function(item) {
       var newItem = {'title' : item};
       $scope.items.push(newItem);
       this.newitem = '';
     };
-    $scope.removeItem = function(index) {
+    this.removeItem = function(index) {
       MEDOapi.removeItem($scope.items[index].nid)
         .then(function(response) {
           console.log(response);
@@ -42,12 +42,12 @@
           console.log(error);
         });
     };
-    $scope.editItem = function(index) {
+    this.editItem = function(index) {
       $scope.editVal = $scope.items[index].title;
     };
-    $scope.updateSave = function(index, item) {
+    this.updateSave = function(index, item) {
     };
-    $scope.updateCancel = function(index) {
+    this.updateCancel = function(index) {
       $scope.items[index].title = $scope.editVal;
     };
 

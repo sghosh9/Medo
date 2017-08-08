@@ -43,11 +43,11 @@
               </div>
             </div>
           </li>
-          <li ng-show="medoctrl.newitem"><span>{{ medoctrl.newitem }}</span></li>
+          <li ng-show="newitem"><span>{{ newitem }}</span></li>
         </ul>
 
-        <form id="add-new" name="addNew" ng-submit="medoctrl.addNew(medoctrl.newitem)">
-          <input type="title" placeholder="More meDOs!" ng-model="medoctrl.newitem" class="form-field" />
+        <form id="add-new" name="addNew" ng-submit="medoctrl.addNew(newitem)">
+          <input type="title" placeholder="More meDOs!" ng-model="newitem" class="form-field" />
           <input type="submit" value="Submit" class="icon-button submit-save">
         </form>
 

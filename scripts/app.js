@@ -26,22 +26,28 @@
         .then(function(response) {
           $scope.items = response.data;
         },function(error){
-          console.log(error);
+          $scope.showMsg('There was an error refreshing the list');
         });
     };
     this.addNew = function(item) {
       var newItem = {'title' : item};
-      $scope.items.push(newItem);
-      this.newitem = '';
+      MEDOapi.addItem(item)
+        .then(function(response) {
+          // $scope.refreshList();
+          $scope.items.push(newItem);
+          $scope.newitem = '';
+          $scope.showMsg(item + ' has been added.');
+        },function(error){
+          $scope.showMsg('There was an error adding the item');
+        });
     };
     this.removeItem = function(index) {
       MEDOapi.removeItem($scope.items[index].nid)
         .then(function(response) {
-          console.log(response);
           $scope.refreshList();
           $scope.showMsg($scope.items[index].title + ' has been removed.');
         },function(error){
-          console.log(error);
+          $scope.showMsg('There was an error removing the item');
         });
     };
     this.editItem = function(index) {
@@ -69,10 +75,25 @@
     var MEDOapi = {};
 
     MEDOapi.getList = function() {
-      return $http.get(urlBase + '/todo-list');
+      return $http.get(urlBase + '/todo-list?18d');
     };
-    MEDOapi.addItem = function(data) {
-      return $http.post(urlBase + '/entity/node');
+    MEDOapi.addItem = function(title) {
+      var newItem = {
+        _links: {
+          type: {
+            href: urlBase + "/rest/type/node/todo"
+          }
+        },
+        title: {
+          value: title
+        }
+      };
+      var configs = {
+        headers: {
+          "Content-Type": "application/hal+json"
+        }
+      }
+      return $http.post(urlBase + '/entity/node', newItem, configs);
     };
     MEDOapi.removeItem = function(nid) {
       return $http.delete(urlBase + '/node/' + nid);

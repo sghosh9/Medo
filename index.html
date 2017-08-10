@@ -26,14 +26,14 @@
       <div class="container" ng-controller="MEDOCtrl as medoctrl">
         <p class="message" ng-show="showMsgFlag">{{ message }}</p>
         <ul id="medo-list">
-          <li ng-repeat="item in items">
+          <li ng-repeat="item in items" id="item-{{item.nid}}" ng-class="{'status-resolved': item.field_status == '1','status-open': item.field_status == '0'}">
             <div class="row-item" ng-hide="editMode">
-              <span>{{ item.title }}</span>
-              <div class="item-actions pull-right">
+              <div class="item-actions pull-left">
                 <input type="submit" value="Edit" class="icon-button edit-item" ng-click="editMode = true; medoctrl.editItem($index)">
                 <input type="submit" value="Delete" class="icon-button remove-item" ng-click="medoctrl.removeItem($index)">
               </div>
-              <input type="checkbox" value="{{ item.title }}" class="pull-right" />
+              <span>{{ item.title }}</span>
+              <input type="checkbox" class="status-ops pull-right" ng-click="medoctrl.statusUpdate($event, $index)" ng-model="item.field_status" ng-true-value="'1'" ng-false-value="'0'" />
             </div>
             <div class="row-edit" ng-show="editMode">
               <input type="title" ng-model="item.title" class="form-field" />

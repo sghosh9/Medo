@@ -29,22 +29,40 @@ body {
   font-size: 18px;
   clear: both;
   padding: 10px 0;
+  overflow: hidden;
 }
-#medo-list li:hover .item-actions input {
-  width: 24px;
-  margin-left: 5px;
+#medo-list li.status-resolved {
+  font-style: italic;
+  text-decoration: line-through;
+  color: #dcdcdc;
+}
+#medo-list li.status-resolved .status-ops {
+  opacity: 0.5;
+}
+#medo-list li.status-resolved .status-ops:hover {
+  opacity: 1;
+}
+#medo-list li .item-actions {
+  transition: all 0.5s ease-in-out;
+  margin-left: -60px;
+}
+#medo-list li:hover .item-actions {
+  margin-left: 0;
 }
 #medo-list .item-actions input {
-  width: 0;
   float: left;
+  margin-right: 5px;
 }
 
 .row-edit {
   position: relative;
 }
+.row-edit .form-field {
+  padding: 0 0 0 58px;
+}
 .submit-actions {
   position: absolute;
-  right: 0;
+  left: 0;
   top: 0;
 }
 

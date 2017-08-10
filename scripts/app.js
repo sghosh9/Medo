@@ -21,7 +21,7 @@
           var newItem = {
             'nid' : response.data.nid[0].value,
             'title' : item,
-            'field_status' : 0
+            'field_status' : '0'
           };
           // $scope.refreshList();
           $scope.items.push(newItem);
@@ -56,6 +56,20 @@
     this.updateCancel = function(index) {
       $scope.items[index].title = $scope.editVal;
     };
+
+    this.statusUpdate = function(event, index) {
+      var checkedVal = event.target.checked;
+      MEDOapi.statusUpdate($scope.items[index].nid, checkedVal)
+        .then(function(response) {
+          // $scope.refreshList();
+          var status = checkedVal ? 'resolved' : 'opened';
+          $scope.showMsg($scope.items[index].title + ' has been ' + status + '.');
+        },function(error){
+          $scope.showMsg('There was an error updating the item');
+          $scope.items[index].field_status = checkedVal ? '0' : '1';
+        });
+    };
+
     $scope.showMsg = function(message) {
       $scope.showMsgFlag = true;
       $scope.message = message;
@@ -113,6 +127,25 @@
     };
     MEDOapi.removeItem = function(nid) {
       return $http.delete(urlBase + '/node/' + nid);
+    };
+
+    MEDOapi.statusUpdate = function(nid, status) {
+      var item = {
+        _links: {
+          type: {
+            href: urlBase + "/rest/type/node/todo"
+          }
+        },
+        field_status: {
+          value: status
+        }
+      };
+      var configs = {
+        headers: {
+          "Content-Type": "application/hal+json"
+        }
+      }
+      return $http.patch(urlBase + '/node/' + nid + '?_format=hal_json', item, configs);
     };
 
     return MEDOapi;

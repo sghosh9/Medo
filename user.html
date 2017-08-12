@@ -1,0 +1,26 @@
+<div ng-controller="userController as userctrl">
+  <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" data-target="#tab-login">Login</a></li>
+    <li><a data-toggle="tab" data-target="#tab-register">Register</a></li>
+  </ul>
+  <div class="tab-content">
+    <div id="tab-login" class="tab-pane fade in active">
+      <h3>Login</h3>
+      <form id="login" name="login" ng-submit="userctrl.userLogin(name, password)">
+        <input type="title" placeholder="Username" ng-model="name" class="form-field" />
+        <input type="password" placeholder="Password" ng-model="password" class="form-field" />
+        <input type="submit" value="Login" title="Login" class="icon-button submit-save">
+      </form>
+    </div>
+    <div id="tab-register" class="tab-pane fade">
+      <h3>Register</h3>
+      <form id="register" name="register" ng-submit="userctrl.userRegister(name, email, password)">
+        <input type="title" placeholder="Username" ng-model="name" class="form-field" />
+        <input type="title" placeholder="Email" ng-model="email" class="form-field" />
+        <input type="password" placeholder="Password" ng-model="password" class="form-field" />
+        <input type="submit" value="Register" title="Register" class="icon-button submit-save">
+      </form>
+    </div>
+  </div>
+
+</div>

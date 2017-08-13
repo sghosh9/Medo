@@ -2,7 +2,7 @@
 
   var app = angular.module('medo');
 
-  app.controller('listController', ['$scope', '$http', 'medoServices', 'MEDOapi', function($scope, $http, medoServices, MEDOapi){
+  app.controller('listController', ['$scope', '$rootScope', '$http', 'medoServices', 'MEDOapi', function($scope, $rootScope, $http, medoServices, MEDOapi){
 
     $scope.items = [];
     $scope.editVal = '';
@@ -11,12 +11,17 @@
     // $scope.service = medoServices;
 
     $scope.refreshList = function() {
-      MEDOapi.getList()
-        .then(function(response) {
-          $scope.items = response.data;
-        },function(error){
-          medoServices.showMsg('There was an error refreshing the list');
-        });
+      if ($rootScope.global.current_user && $rootScope.global.current_user.uid) {
+        MEDOapi.getList($rootScope.global.current_user.uid)
+          .then(function(response) {
+            $scope.items = response.data;
+          },function(error){
+            medoServices.showMsg('There was an error refreshing the list');
+          });
+      }
+      else {
+        medoServices.showMsg('You gotta sign in to start medoing dude!');
+      }
     };
     this.addNew = function(item) {
       MEDOapi.addItem(item)
@@ -81,8 +86,10 @@
     var urlBase = 'http://local.d8.com';
     var MEDOapi = {};
 
-    MEDOapi.getList = function() {
-      return $http.get(urlBase + '/todo-list?18d');
+    MEDOapi.getList = function(uid) {
+      if (uid) {
+        return $http.get(urlBase + '/todo-list/' + uid);
+      }
     };
     MEDOapi.addItem = function(title) {
       var newItem = {

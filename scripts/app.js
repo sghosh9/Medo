@@ -18,13 +18,17 @@
   });
 
   app.run(['$rootScope', '$cookies', '$http', function ($rootScope, $cookies, $http) {
-    var globalCookies = $cookies.getObject('global');
-    if (globalCookies) {
-      $http.defaults.headers.common['Authorization'] = 'Basic ' + globalCookies.current_user.auth;
-    }
 
     $rootScope.showMsgFlag = false;
     $rootScope.message = '';
+    $rootScope.global = {};
+
+    var globalCookies = $cookies.getObject('global');
+    if (globalCookies) {
+      $rootScope.global = globalCookies;
+      $http.defaults.headers.common['Authorization'] = 'Basic ' + globalCookies.current_user.auth;
+    }
+
   }])
 
   app.service('medoServices', ['$timeout', '$rootScope', function ($timeout, $rootScope) {

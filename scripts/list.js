@@ -13,7 +13,6 @@
     $scope.refreshList = function() {
       MEDOapi.getList()
         .then(function(response) {
-          medoServices.showMsg("the list has been refreshed")
           $scope.items = response.data;
         },function(error){
           medoServices.showMsg('There was an error refreshing the list');

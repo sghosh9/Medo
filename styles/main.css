@@ -18,10 +18,13 @@ body {
   border-top: 1px solid #e5e5e5;
 }
 
+.page-content {
+  margin: 40px 0;
+}
+
 
 /* List of TODOs */
 #medo-list {
-  margin: 40px 0;
   padding: 0;
   list-style: none;
 }
@@ -115,3 +118,58 @@ body {
     max-width: 730px;
   }
 }
+
+.icon-field {
+  padding-left: 30px;
+}
+.field-name {
+  background: url(../images/user.png) no-repeat 0;
+}
+.field-mail {
+  background: url(../images/mail.png) no-repeat 0;
+}
+.field-password {
+  background: url(../images/password.png) no-repeat 0;
+}
+
+
+/* User Login/Register*/
+#user-forms .nav li {
+  padding: 0;
+}
+#user-forms .nav li a {
+  background: #efefef;
+  border: none;
+  margin: 0;
+  border-radius: 0;
+  text-align: center;
+  text-transform: uppercase;
+  padding: 15px 10px;
+  font-weight: bold;
+  color: #222;
+  cursor: pointer;
+}
+#user-forms .nav li.active a {
+  background: #a3d179;
+}
+#user-forms form {
+  margin: 30px 0;
+}
+#user-forms form .field-wrapper {
+  margin: 20px 0;
+}
+#user-forms form .submit-save {
+  background: #efefef;
+  text-indent: 0;
+  width: 100%;
+  height: auto;
+  padding: 10px;
+  margin: 20px 0;
+}
+#user-forms form .submit-save:hover {
+  background: #a3d179;
+}
+#user-forms {}
+#user-forms {}
+#user-forms {}
+#user-forms {}

@@ -1,4 +1,5 @@
-<ul id="medo-list">
+<ul id="medo-list" class="page-content">
+  <p class="message" ng-show="showMsgFlag">{{ message }}</p>
   <li ng-repeat="item in items" id="item-{{item.nid}}" ng-class="{'status-resolved': item.field_status == '1','status-open': item.field_status == '0'}">
     <div class="row-item" ng-hide="editMode">
       <div class="item-actions pull-left">

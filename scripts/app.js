@@ -1,5 +1,5 @@
 (function() {
-  var app = angular.module('medo', ["ngRoute"]);
+  var app = angular.module('medo', ["ngRoute", "ngCookies"]);
 
   app.config(function ($routeProvider) {
     $routeProvider
@@ -17,7 +17,12 @@
     });
   });
 
-  app.run(['$rootScope', function ($rootScope) {
+  app.run(['$rootScope', '$cookies', '$http', function ($rootScope, $cookies, $http) {
+    var globalCookies = $cookies.getObject('global');
+    if (globalCookies) {
+      $http.defaults.headers.common['Authorization'] = 'Basic ' + globalCookies.current_user.auth;
+    }
+
     $rootScope.showMsgFlag = false;
     $rootScope.message = '';
   }])

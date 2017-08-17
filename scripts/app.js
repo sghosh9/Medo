@@ -16,7 +16,7 @@
       template: '<p class="text-center">Nothing to do here</p>'
     });
 
-    $locationProvider.html5Mode(true).hashPrefix('!');
+    // $locationProvider.html5Mode(true).hashPrefix('!');
 
     // $httpProvider.interceptors.push(function($q, dependency1, dependency2) {
     //   return {
@@ -36,9 +36,11 @@
     $rootScope.showMsgFlag = false;
     $rootScope.message = '';
     $rootScope.global = {};
+    $rootScope.loggedin = false;
 
     var globalCookies = $cookies.getObject('global');
     if (globalCookies) {
+      $rootScope.loggedin = true;
       $rootScope.global = globalCookies;
       $http.defaults.headers.common['Authorization'] = 'Basic ' + globalCookies.current_user.auth;
       // $http.defaults.headers.common['X-CSRF-Token'] = $rootScope.global.current_user.csrf_token;

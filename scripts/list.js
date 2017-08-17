@@ -16,11 +16,12 @@
           .then(function(response) {
             $scope.items = response.data;
           },function(error){
-            medoServices.showMsg('There was an error refreshing the list');
+            var error_message = (error.data.message) ? error.data.message : 'There was an error refreshing the list';
+            medoServices.showMsg(error_message, 2000);
           });
       }
       else {
-        medoServices.showMsg('You gotta sign in to start medoing dude!');
+        medoServices.showMsg('You gotta sign in to start medoing dude!', 2000);
       }
     };
     this.addNew = function(item) {
@@ -34,18 +35,20 @@
           // $scope.refreshList();
           $scope.items.push(newItem);
           $scope.newitem = '';
-          medoServices.showMsg(item + ' has been added.');
+          medoServices.showMsg('\'' + item + '\' has been added.', 1000);
         },function(error){
-          medoServices.showMsg('There was an error adding the item');
+          var error_message = (error.data.message) ? error.data.message : 'There was an error adding the item';
+          medoServices.showMsg(error_message, 2000);
         });
     };
     this.removeItem = function(index) {
       MEDOapi.removeItem($scope.items[index].nid)
         .then(function(response) {
           $scope.refreshList();
-          medoServices.showMsg($scope.items[index].title + ' has been removed.');
+          medoServices.showMsg('\'' + $scope.items[index].title + '\' has been removed.', 1000);
         },function(error){
-          medoServices.showMsg('There was an error removing the item');
+          var error_message = (error.data.message) ? error.data.message : 'There was an error removing the item';
+          medoServices.showMsg(error_message, 2000);
         });
     };
     this.editItem = function(index) {
@@ -55,9 +58,10 @@
       MEDOapi.updateItem($scope.items[index].nid, item)
         .then(function(response) {
           // $scope.refreshList();
-          medoServices.showMsg($scope.items[index].title + ' has been updated.');
+          medoServices.showMsg('\'' + $scope.items[index].title + '\' has been updated.', 1000);
         },function(error){
-          medoServices.showMsg('There was an error updating the item');
+          var error_message = (error.data.message) ? error.data.message : 'There was an error updating the item';
+          medoServices.showMsg(error_message, 2000);
           $scope.items[index].title = $scope.editVal;
         });
     };
@@ -71,9 +75,10 @@
         .then(function(response) {
           // $scope.refreshList();
           var status = checkedVal ? 'resolved' : 'opened';
-          medoServices.showMsg($scope.items[index].title + ' has been ' + status + '.');
+          medoServices.showMsg('\'' + $scope.items[index].title + '\' has been ' + status + '.', 1000);
         },function(error){
-          medoServices.showMsg('There was an error updating the item');
+          var error_message = (error.data.message) ? error.data.message : 'There was an error updating the item';
+          medoServices.showMsg(error_message, 2000);
           $scope.items[index].field_status = checkedVal ? '0' : '1';
         });
     };
@@ -88,7 +93,7 @@
 
     MEDOapi.getList = function(uid) {
       if (uid) {
-        return $http.get(urlBase + '/todo-list/' + uid);
+        return $http.get(urlBase + '/todo-list/' + uid + '?_format=json');
       }
     };
     MEDOapi.addItem = function(title) {
@@ -107,7 +112,7 @@
           "Content-Type": "application/hal+json"
         }
       }
-      return $http.post(urlBase + '/entity/node', newItem, configs);
+      return $http.post(urlBase + '/entity/node?_format=json', newItem, configs);
     };
     MEDOapi.updateItem = function(nid, title) {
       var item = {
@@ -125,7 +130,7 @@
           "Content-Type": "application/hal+json"
         }
       }
-      return $http.patch(urlBase + '/node/' + nid + '?_format=hal_json', item, configs);
+      return $http.patch(urlBase + '/node/' + nid + '?_format=json', item, configs);
     };
     MEDOapi.removeItem = function(nid) {
       return $http.delete(urlBase + '/node/' + nid);
@@ -147,7 +152,7 @@
           "Content-Type": "application/hal+json"
         }
       }
-      return $http.patch(urlBase + '/node/' + nid + '?_format=hal_json', item, configs);
+      return $http.patch(urlBase + '/node/' + nid + '?_format=json', item, configs);
     };
 
     return MEDOapi;

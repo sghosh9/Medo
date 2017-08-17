@@ -7,22 +7,27 @@
     this.userLogin = function(name, password) {
       userAPI.Login(name, password)
         .then(function(response) {
+
           var user_data = response.data.current_user;
           user_data.csrf_token = response.data.csrf_token;
           user_data.logout_token = response.data.logout_token;
           userAPI.setSession(name, password, user_data);
 
-          medoServices.showMsg('You have been logged in');
+          medoServices.showMsg('You have been logged in.');
         },function(error){
-          medoServices.showMsg('There was an error logging you in, let\'s try again!');
+          console.log(error);
+          var error_message = (error.data.message) ? error.data.message : 'There was an error logging you in, let\'s try again!';
+          medoServices.showMsg(error_message);
         });
     };
     this.userRegister = function(name, email, password) {
       userAPI.userRegister(name, email, password)
         .then(function(response) {
-          medoServices.showMsg('Account has been created');
+          medoServices.showMsg('Account has been created.');
         },function(error){
-          medoServices.showMsg('There was an error creating the account');
+          console.log(error);
+          var error_message = (error.data.message) ? error.data.message : 'There was an error creating the account';
+          medoServices.showMsg(error_message);
         });
     };
   }]);
@@ -47,7 +52,7 @@
           "Content-Type": "application/hal+json"
         }
       }
-      return $http.post(urlBase + '/user/register', body, configs);
+      return $http.post(urlBase + '/user/register?_format=json', body, configs);
     };
     userAPI.Login = function(name, password) {
       var body = {
@@ -68,6 +73,7 @@
         current_user: user_data
       };
       $http.defaults.headers.common['Authorization'] = 'Basic ' + authData;
+      // $http.defaults.headers.common['X-CSRF-Token'] = $rootScope.global.current_user.csrf_token;
       $cookies.putObject('global', $rootScope.global);
     };
 

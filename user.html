@@ -7,16 +7,16 @@
     <p class="message" ng-show="showMsgFlag">{{ message }}</p>
     <div id="tab-login" class="tab-pane fade in active">
       <form id="login" name="login" ng-submit="userctrl.userLogin(name, password)">
-        <div class="field-wrapper"><input type="title" placeholder="Username" ng-model="name" class="form-field icon-field field-name" /></div>
-        <div class="field-wrapper"><input type="password" placeholder="Password" ng-model="password" class="form-field icon-field field-password" /></div>
+        <div class="field-wrapper"><input type="title" placeholder="Username*" required ng-model="name" class="form-field icon-field field-name" /></div>
+        <div class="field-wrapper"><input type="password" placeholder="Password*" required ng-model="password" class="form-field icon-field field-password" /></div>
         <input type="submit" value="Get Medoing!" title="Login" class="icon-button submit-save">
       </form>
     </div>
     <div id="tab-register" class="tab-pane fade">
       <form id="register" name="register" ng-submit="userctrl.userRegister(name, email, password)">
-        <div class="field-wrapper"><input type="title" placeholder="Username" ng-model="name" class="form-field icon-field field-name" /></div>
-        <div class="field-wrapper"><input type="title" placeholder="Email" ng-model="email" class="form-field icon-field field-mail" /></div>
-        <div class="field-wrapper"><input type="password" placeholder="Password" ng-model="password" class="form-field icon-field field-password" /></div>
+        <div class="field-wrapper"><input type="title" placeholder="Username*" required ng-model="name" class="form-field icon-field field-name" /></div>
+        <div class="field-wrapper"><input type="email" placeholder="Email*" required ng-model="email" class="form-field icon-field field-mail" /></div>
+        <div class="field-wrapper"><input type="password" placeholder="Password*" required ng-model="password" class="form-field icon-field field-password" /></div>
         <input type="submit" value="Sign me up!" title="Register" class="icon-button submit-save">
       </form>
     </div>

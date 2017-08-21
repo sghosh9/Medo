@@ -11,6 +11,10 @@
       userAPI.Login(name, password)
         .then(function(response) {
 
+          console.log($cookies.get('SESS2b9b12979fca0b59cdfc49990fe77f95'));
+          console.log($cookies.getObject('SESS2b9b12979fca0b59cdfc49990fe77f95'));
+          console.log($cookies.SESS2b9b12979fca0b59cdfc49990fe77f95);
+
           var user_data = response.data.current_user;
           user_data.csrf_token = response.data.csrf_token;
           user_data.logout_token = response.data.logout_token;
@@ -115,8 +119,8 @@
       $rootScope.global = {
         current_user: user_data
       };
-      $http.defaults.headers.common['Authorization'] = 'Basic ' + authData;
-      $http.defaults.headers.common['X-CSRF-Token'] = $rootScope.global.current_user.csrf_token;
+      // $http.defaults.headers.common['Authorization'] = 'Basic ' + authData;
+      // $http.defaults.headers.common['X-CSRF-Token'] = $rootScope.global.current_user.csrf_token;
       $http.defaults.headers.common['withCredentials'] = true;
       $cookies.putObject('global', $rootScope.global);
       $rootScope.loggedin = true;

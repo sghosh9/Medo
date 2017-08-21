@@ -51,7 +51,7 @@
     if (globalCookies) {
       $rootScope.loggedin = true;
       $rootScope.global = globalCookies;
-      $http.defaults.headers.common['Authorization'] = 'Basic ' + globalCookies.current_user.auth;
+      // $http.defaultsg.headers.common['Authorization'] = 'Basic ' + globalCookies.current_user.auth;
       // $http.defaults.headers.common['X-CSRF-Token'] = $rootScope.global.current_user.csrf_token;
     }
 

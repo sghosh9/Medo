@@ -1,4 +1,4 @@
-<div id="user-forms" ng-controller="userController as userctrl" class="page-content">
+<div id="user-forms" class="page-content">
   <ul class="nav nav-tabs">
     <li class="col-xs-6 active"><a data-toggle="tab" data-target="#tab-login">Login</a></li>
     <li class="col-xs-6"><a data-toggle="tab" data-target="#tab-register">Register</a></li>
@@ -21,4 +21,5 @@
       </form>
     </div>
   </div>
+  <a ng-click="userctrl.userLogout()">Logout</a>
 </div>

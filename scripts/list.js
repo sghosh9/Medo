@@ -2,7 +2,11 @@
 
   var app = angular.module('medo');
 
-  app.controller('listController', ['$scope', '$rootScope', '$http', 'medoServices', 'MEDOapi', function($scope, $rootScope, $http, medoServices, MEDOapi){
+  app.controller('listController', ['$scope', '$rootScope', '$http', '$location', 'medoServices', 'MEDOapi', function($scope, $rootScope, $http, $location, medoServices, MEDOapi){
+
+    if (!$rootScope.loggedin) {
+      $location.path('/user');
+    }
 
     $scope.items = [];
     $scope.editVal = '';
@@ -21,7 +25,7 @@
           });
       }
       else {
-        medoServices.showMsg('You gotta sign in to start medoing dude!', 2000);
+        // medoServices.showMsg('You gotta sign in to start medoing dude!', 2000);
       }
     };
     this.addNew = function(item) {

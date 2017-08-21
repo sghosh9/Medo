@@ -1,7 +1,7 @@
 (function() {
   var app = angular.module('medo', ["ngRoute", "ngCookies"]);
 
-  app.config(['$routeProvider', '$httpProvider', '$locationProvider', function ($routeProvider, $httpProvider, $locationProvider) {
+  app.config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpProvider) {
     $routeProvider
     .when('/', {
       templateUrl: 'list.html',
@@ -10,11 +10,19 @@
     })
     .when('/user', {
       templateUrl: 'user.html',
-      controller: 'userController'
+      controller: 'userController',
+      controllerAs: 'userctrl'
+    })
+    .when('/user/logout', {
+      templateUrl: '',
+      controller: 'userController',
+      controllerAs: 'userctrl'
     })
     .otherwise({
       template: '<p class="text-center">Nothing to do here</p>'
     });
+
+    // $httpProvider.defaults.headers.common.withCredentials = true;
 
     // $locationProvider.html5Mode(true).hashPrefix('!');
 
@@ -32,6 +40,7 @@
   }]);
 
   app.run(['$rootScope', '$cookies', '$http', function ($rootScope, $cookies, $http) {
+    $http.defaults.headers.common['withCredentials'] = true;
 
     $rootScope.showMsgFlag = false;
     $rootScope.message = '';
